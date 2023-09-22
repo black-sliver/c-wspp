@@ -105,9 +105,7 @@ void wspp_set_open_handler(wspp_ws* ws, OnOpenCallback f)
 
 void wspp_set_close_handler(wspp_ws* ws, OnCloseCallback f)
 {
-    printf("set_close_handler(%p) for %p\n", f, ws->impl);
     ws->impl->set_close_handler([ws, f]() { // TODO: code, reason
-        printf("dispatch close_handler(%p) for %p\n", f, ws->impl);
         if (f)
             f();
     });
@@ -132,9 +130,7 @@ void wspp_set_error_handler(wspp_ws* ws, OnErrorCallback f)
 
 void wspp_set_pong_handler(wspp_ws* ws, OnPongCallback f)
 {
-    printf("set pong_handler(%p) for %p\n", f, ws->impl);
     ws->impl->set_pong_handler([ws, f](const std::string& data) {
-        printf("dispatch pong_handler(%p) for %p\n", f, ws->impl);
         if (f)
             f(data.c_str(), data.length());
     });

@@ -193,7 +193,6 @@ public:
         });
         _client.set_close_handler([this] (websocketpp::connection_hdl hdl) {
             // TODO: code, reason
-            printf("calling inner close handler: %p\n", _close_handler);
             if (_close_handler)
                 _close_handler();
         });
@@ -207,7 +206,6 @@ public:
                 _error_handler();
         });
         _client.set_pong_handler([this] (websocketpp::connection_hdl hdl, std::string data) {
-            printf("client.pong\n");
             if (_pong_handler)
                 _pong_handler(data);
         });
@@ -253,7 +251,6 @@ public:
     virtual void set_close_handler(close_handler f) override
     {
         _close_handler = f;
-        printf("inner close handler: %p\n", f);
     }
 
     virtual void set_message_handler(message_handler f) override
@@ -268,7 +265,6 @@ public:
 
     virtual void set_pong_handler(pong_handler f) override
     {
-        printf("ClientWebSocket::set_pong_handler\n");
         _pong_handler = f;
     }
 };
