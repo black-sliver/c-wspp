@@ -39,6 +39,8 @@ public:
     virtual void set_message_handler(message_handler f) = 0;
     virtual void set_error_handler(error_handler f) = 0;
     virtual void set_pong_handler(pong_handler f) = 0;
+
+    virtual ~AbstractClientWebSocket(){}
 };
 
 namespace detail {
