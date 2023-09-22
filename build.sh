@@ -62,6 +62,7 @@ DEST=build/$PLATFORM/lib/c-wspp$DLL_EXT
 # try static linking first, then dynamic
 if needs_build $DEST; then
     echo "Building lib for $PLATFORM ($DUMPMACHINE)"
+    set -x
     g++ -o "$DEST" \
         -shared -fpic $OPTIMZE \
         -Wno-deprecated-declarations \
@@ -79,6 +80,7 @@ if needs_build $DEST; then
         -lssl -lcrypto \
         $EXTRA_LIBS \
         -Wno-deprecated
+    set +x
 else
     echo "lib for $PLATFORM is up to date"
 fi
@@ -89,11 +91,13 @@ DEST=build/$PLATFORM/lib/c-wspp$DLL_EXT
 
 if needs_build $DEST; then
     echo "Building test for $PLATFORM"
+    set -x
     g++ -o "$DEST" \
         -Wno-deprecated-declarations $OPTIMZE \
         src/test.c src/c-wspp.cpp \
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
         -lssl -lcrypto
+    set +x
 else
     echo "test for $PLATFORM is up to date"
 fi
@@ -106,6 +110,7 @@ if [ -x "$(which x86_64-w64-mingw32-g++)" ]; then
 
     if needs_build $DEST; then
         echo "Building lib for $PLATFORM"
+        set -x
         x86_64-w64-mingw32-g++ -o "$DEST" \
             -shared -fpic $OPTIMZE \
             -Wno-deprecated-declarations \
@@ -114,6 +119,7 @@ if [ -x "$(which x86_64-w64-mingw32-g++)" ]; then
             -lssl -lcrypto -lcrypt32 -lws2_32 \
             -Wl,-Bstatic \
             -Wno-deprecated
+        set +x
     else
         echo "lib for $PLATFORM is up to date"
     fi
@@ -127,6 +133,7 @@ if [ -x "$(which i686-w64-mingw32-g++)" ]; then
 
     if needs_build $DEST; then
         echo "Building lib for $PLATFORM"
+        set -x
         i686-w64-mingw32-g++ -o "$DEST" \
             -shared -fpic $OPTIMZE \
             -Wno-deprecated-declarations \
@@ -135,6 +142,7 @@ if [ -x "$(which i686-w64-mingw32-g++)" ]; then
             -lssl -lcrypto -lcrypt32 -lws2_32 \
             -Wl,-Bstatic \
             -Wno-deprecated
+        set +x
     else
         echo "lib for $PLATFORM is up to date"
     fi
