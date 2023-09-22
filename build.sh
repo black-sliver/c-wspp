@@ -6,9 +6,12 @@ OPTIMZE="-Os -s"
 
 
 get_platform () {
-    DUMPMACHINE=$($1 -dumpmachine)
+    DUMPMACHINE=$($1 -dumpmachine) # sometimes *-pc-linux-gnu, sometimes *-linux-gnu
     OS=$($1 -dumpmachine | cut -d'-' -f3)
     ARCH=$($1 -dumpmachine | cut -d'-' -f1)
+    if [[ "$OS" == "gnu" ]]; then
+        OS="linux"
+    fi
     if [[ "$OS" == darwin* ]]; then
         # macos
         PLATFORM="macos-$ARCH"
