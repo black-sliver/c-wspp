@@ -6,6 +6,7 @@ OPTIMZE="-Os -s"
 
 
 get_platform () {
+    "$1" --version | grep -q "clang" && IS_CLANG=1 || IS_CLANG=0
     DUMPMACHINE=$($1 -dumpmachine) # sometimes *-pc-linux-gnu, sometimes *-linux-gnu
     OS=$($1 -dumpmachine | cut -d'-' -f3)
     ARCH=$($1 -dumpmachine | cut -d'-' -f1)
@@ -24,7 +25,10 @@ get_platform () {
             PLATFORM="win32"
         fi
         DLL_EXT=".dll"
-        EXTRA_LIBS="-lcrypt32 -lws2_32"
+        EXTRA_LIBS="-Wl,-Bdynamic -lcrypt32 -lws2_32"
+        if [ "$IS_CLANG" -ne 0 ]; then
+            EXTRA_LIBS="-lc++ $EXTRA_LIBS"
+        fi
     else
         # other
         PLATFORM="$OS-$ARCH"
