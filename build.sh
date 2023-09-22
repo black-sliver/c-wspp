@@ -24,6 +24,7 @@ get_platform () {
             PLATFORM="win32"
         fi
         DLL_EXT=".dll"
+        EXTRA_LIBS="-lcrypt32 -lws2_32"
     else
         # other
         PLATFORM="$OS-$ARCH"
@@ -64,6 +65,7 @@ if needs_build $DEST; then
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
         -Wl,-Bstatic \
         -lssl -lcrypto \
+        $EXTRA_LIBS \
         -Wno-deprecated 2>/dev/null || \
     g++ -o "$DEST" \
         -shared -fpic $OPTIMIZE \
@@ -71,6 +73,7 @@ if needs_build $DEST; then
         src/c-wspp.cpp \
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
         -lssl -lcrypto \
+        $EXTRA_LIBS \
         -Wno-deprecated
 else
     echo "lib for $PLATFORM is up to date"
