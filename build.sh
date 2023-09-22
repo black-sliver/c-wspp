@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # TODO: makefile and vs solution?
 
@@ -6,6 +6,7 @@ OPTIMZE="-Os -s"
 
 
 get_platform () {
+    DUMPMACHINE=$($1 -dumpmachine)
     OS=$($1 -dumpmachine | cut -d'-' -f3)
     ARCH=$($1 -dumpmachine | cut -d'-' -f1)
     if [[ "$OS" == darwin* ]]; then
@@ -52,7 +53,7 @@ DEST=build/$PLATFORM/lib/c-wspp$DLL_EXT
 
 # try static linking first, then dynamic
 if needs_build $DEST; then
-    echo "Building lib for $PLATFORM"
+    echo "Building lib for $PLATFORM ($DUMPMACHINE)"
     g++ -o "$DEST" \
         -shared -fpic $OPTIMZE \
         -Wno-deprecated-declarations \
