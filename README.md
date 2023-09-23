@@ -33,7 +33,7 @@ to get recent SSL/TLS into older Mono projects, but can also be used for other s
 
 ## TODO
 
-* Actual build system - currently build.sh used to get a DLL from github actions
+* Actual build system - currently build.sh is used to get a DLL from github actions
 * Better errors
 * Submodule ASIO
 * Testing
