@@ -97,7 +97,9 @@ if needs_build $DEST; then
         -Wno-deprecated-declarations $OPTIMZE \
         src/test.c src/c-wspp.cpp \
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
-        -lssl -lcrypto
+        -lssl -lcrypto \
+        $EXTRA_LIBS \
+        -Wno-deprecated
     set +x
 else
     echo "test for $PLATFORM is up to date"
