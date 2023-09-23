@@ -25,6 +25,7 @@ get_platform () {
             PLATFORM="win32"
         fi
         DLL_EXT=".dll"
+        EXE_EXT=".exe"
         EXTRA_LIBS="-Wl,-Bdynamic -lcrypt32 -lws2_32"
         if [ "$IS_CLANG" -ne 0 ]; then
             EXTRA_LIBS="-lc++ $EXTRA_LIBS"
@@ -87,7 +88,7 @@ fi
 
 #native / local test binary
 mkdir -p build/$PLATFORM/bin
-DEST=build/$PLATFORM/lib/c-wspp$DLL_EXT
+DEST=build/$PLATFORM/bin/c-wspp$EXE_EXT
 
 if needs_build $DEST; then
     echo "Building test for $PLATFORM"
