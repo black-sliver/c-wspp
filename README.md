@@ -2,14 +2,15 @@
 
 C Wrapper for WebSocket++ (Client only)
 
-This is being used to implement a fake websocket-sharp to get recent SSL/TLS into older Mono projects.
+This is being used to implement a [fake websocket-sharp](https://github.com/black-sliver/c-wspp-websocket-sharp)
+to get recent SSL/TLS into older Mono projects, but can also be used for other stuff.
 
 ## API
 
 * `wspp_new(const char* uri) -> wspp_ws*` - create new websocket for URI (ws:// or wss://)
 * `wspp_delete(wspp_ws*)` - close websocket and free memory
 * `wspp_poll(wspp_ws*) -> uint64_t` - poll network and dispatch events non-blocking, returns number of handled events
-* `wspp_run(wspp_ws*) -> uint64_t` - poll network and dispatch events blocking, returns number of handled events - this is preferred
+* `wspp_run(wspp_ws*) -> uint64_t` - poll network and dispatch events blocking, returns number of handled events
 * `wspp_stopped(wspp_ws*) -> bool` - returns true if the io service was shut down
 * `wspp_connect(wspp_ws*) -> wspp_error` - connect to the uri. do this before poll/run. returns an error code
 * `wspp_close(uint16_t code, const char* reason)` - disconnect the websocket. still need to poll/run until disconnected
@@ -32,6 +33,7 @@ This is being used to implement a fake websocket-sharp to get recent SSL/TLS int
 
 ## TODO
 
+* Actual build system - currently build.sh used to get a DLL from github actions
 * Better errors
 * Submodule ASIO
 * Testing
