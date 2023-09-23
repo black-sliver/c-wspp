@@ -17,7 +17,7 @@ get_platform () {
         # macos
         PLATFORM="macos-$ARCH"
         DLL_EXT=".dylib"
-    elif [[ "$OS" == "mingw32" ]]; then
+    elif [[ "$OS" == "mingw32" ]] || [[ "$OS" == "windows" ]]; then
         # windows
         if [[ "$ARCH" == "x86_64" ]] || [[ "$ARCH" == "amd64" ]]; then
             PLATFORM="win64"
