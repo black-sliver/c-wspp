@@ -122,9 +122,9 @@ void wspp_set_message_handler(wspp_ws* ws, OnMessageCallback f)
 void wspp_set_error_handler(wspp_ws* ws, OnErrorCallback f)
 {
     // TODO: fail_handler instead?
-    ws->impl->set_error_handler([f]() { // TODO: errorCode, message
+    ws->impl->set_error_handler([f](const std::string& msg) { // TODO: errorCode, message
         if (f)
-            f();
+            f(msg.c_str());
     });
 }
 

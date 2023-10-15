@@ -22,7 +22,7 @@ public:
     typedef std::function<void(void)> open_handler;
     typedef std::function<void(void)> close_handler; // TODO: code, reason
     typedef std::function<void(const std::string& message, int opCode)> message_handler;
-    typedef std::function<void(void)> error_handler; // TODO: errorCode, message
+    typedef std::function<void(const std::string& msg)> error_handler; // TODO: errorCode
     typedef std::function<void(const std::string& data)> pong_handler;
 
     virtual size_t poll() = 0;
@@ -203,9 +203,19 @@ public:
                 _message_handler(msg->get_payload(), (int)msg->get_opcode());
         });
         _client.set_fail_handler([this] (websocketpp::connection_hdl hdl) {
-            // TODO: errorCode, message
-            if (_error_handler)
-                _error_handler();
+            // TODO: errorCode
+            if (_error_handler) {
+                asio::error_code ec;
+                auto conn = _client.get_con_from_hdl(hdl, ec);
+                if (ec)
+                    _error_handler(ec.message());
+                else if (conn->get_ec())
+                    _error_handler(conn->get_ec().message());
+                else if(!conn->get_response_msg().empty())
+                    _error_handler(conn->get_response_msg());
+                else
+                    _error_handler("Unknown");
+            }
         });
         _client.set_pong_handler([this] (websocketpp::connection_hdl hdl, std::string data) {
             if (_pong_handler)

@@ -14,7 +14,7 @@ typedef struct wspp_ws wspp_ws;
 typedef void (*OnOpenCallback)(void);
 typedef void (*OnCloseCallback)(void); // TODO: code, reason
 typedef void (*OnMessageCallback)(const char* data, uint64_t len, int32_t opCode);
-typedef void (*OnErrorCallback)(void); // TODO: errorCode, message
+typedef void (*OnErrorCallback)(const char* msg); // TODO: errorCode
 typedef void (*OnPongCallback)(const char* data, uint64_t len);
 
 enum wspp_error {
