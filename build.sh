@@ -32,7 +32,7 @@ get_platform () {
         fi
     else
         # other
-        EXTRA_LIBS="-pthread"
+        #EXTRA_LIBS="-pthread"
         PLATFORM="$OS-$ARCH"
         DLL_EXT=".so"
     fi
@@ -70,8 +70,7 @@ if needs_build $DEST; then
         -Wno-deprecated-declarations \
         src/c-wspp.cpp \
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
-        -static \
-        -lssl -lcrypto \
+        -:lssl.a -l:crypto.a \
         $EXTRA_LIBS \
         -Wno-deprecated #|| \
     #g++ -o "$DEST" \
