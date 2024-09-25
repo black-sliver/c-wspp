@@ -32,6 +32,7 @@ get_platform () {
         fi
     else
         # other
+        EXTRA_LIBS="-pthread"
         PLATFORM="$OS-$ARCH"
         DLL_EXT=".so"
     fi
