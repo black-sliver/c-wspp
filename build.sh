@@ -70,7 +70,7 @@ if needs_build $DEST; then
         -Wno-deprecated-declarations \
         src/c-wspp.cpp \
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
-        -:lssl.a -l:crypto.a \
+        -l:lssl.a -l:crypto.a \
         $EXTRA_LIBS \
         -Wno-deprecated #|| \
     #g++ -o "$DEST" \
