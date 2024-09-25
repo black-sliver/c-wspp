@@ -66,7 +66,7 @@ if needs_build $DEST; then
     echo "Building lib for $PLATFORM ($DUMPMACHINE)"
     set -x
     g++ -o "$DEST" \
-        -shared -fpic $OPTIMZE \
+        -shared $OPTIMZE \
         -Wno-deprecated-declarations \
         src/c-wspp.cpp \
         -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
