@@ -73,7 +73,7 @@ if needs_build $DEST; then
         -Wl,-Bstatic \
         -lssl -lcrypto \
         $EXTRA_LIBS \
-        -Wno-deprecated 2>/dev/null || \
+        -Wno-deprecated || \
     g++ -o "$DEST" \
         -shared -fpic $OPTIMIZE \
         -Wno-deprecated-declarations \
