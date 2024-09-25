@@ -64,7 +64,7 @@ DEST=build/$PLATFORM/lib/c-wspp$DLL_EXT
 # try static linking first, then dynamic
 if needs_build $DEST; then
     echo "Building lib for $PLATFORM ($DUMPMACHINE)"
-    #set -x
+    set -x
     g++ -o "$DEST" \
         -shared -fpic $OPTIMZE \
         -Wno-deprecated-declarations \
@@ -73,16 +73,16 @@ if needs_build $DEST; then
         -Wl,-Bstatic \
         -lssl -lcrypto \
         $EXTRA_LIBS \
-        -Wno-deprecated || \
-    g++ -o "$DEST" \
-        -shared -fpic $OPTIMIZE \
-        -Wno-deprecated-declarations \
-        src/c-wspp.cpp \
-        -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
-        -lssl -lcrypto \
-        $EXTRA_LIBS \
-        -Wno-deprecated
-    #set +x
+        -Wno-deprecated #|| \
+    #g++ -o "$DEST" \
+    #    -shared -fpic $OPTIMIZE \
+    #    -Wno-deprecated-declarations \
+    #    src/c-wspp.cpp \
+    #    -Iinclude -Isubprojects/websocketpp -Isubprojects/asio/include \
+    #    -lssl -lcrypto \
+    #    $EXTRA_LIBS \
+    #    -Wno-deprecated
+    set +x
 else
     echo "lib for $PLATFORM is up to date"
 fi
